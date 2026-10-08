@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: public-deployment
+  namespace: snappy-chat-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: public
+  template:
+    metadata:
+      name: public-pod
+      namespace: snappy-chat-app
+      labels:
+        app: public
+    spec:
+      containers:
+      - name: snappy-app-container
+        image: prafuldevops/snappy-chat-public:latest
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 80
+
