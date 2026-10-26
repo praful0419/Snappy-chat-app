@@ -15,6 +15,10 @@ spec:
       labels:
         app: public
     spec:
+      initContainers:
+      - name: wait-for-server
+        image: busybox
+        command: ['sh', '-c', 'until nc -z snappy-chat-server 5000; do echo "waiting for server..."; sleep 3; done; echo "server is up"']
       containers:
       - name: snappy-app-container
         image: prafuldevops/snappy-chat-public:latest
